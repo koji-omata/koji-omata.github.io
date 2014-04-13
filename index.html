@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Green</title>
+<script type="application/x-javascript" src="green.js"></script>
+<style type="text/css">
+      body { margin: 20px; font-family: arial,verdana,helvetica; background: #fff;}
+      h1 { font-size: 140%; font-weight:normal; color: #036; border-bottom: 1px solid #ccc; }
+      .value{ border: 1px outset;}
+      canvas { float: left; margin-right: 20px; margin-bottom: 20px; border: 1px; }
+    </style>
+</head>
+  <body onload="init(1);">
+    <h1>
+      h(in)=<input type="text" id="h" value="1.5" onchange="init();" size="3" />
+      up(in)=<input type="text" id="up" value="10" onchange="init();" size="3" />
+      dw(in)=<input type="text" id="dw" value="22" onchange="init();" size="3" />
+    </h1>
+    <h1>
+      mu(%)=<span class="value" id="mu" size="3"></span>
+      grad(%)=<span class="value" id="grad" size="3"></span>
+      std head(ft)=<span class="value" id="head" size="3"></span>
+    </h1>
+    <h1>
+      drift(%)=<span class="value" id="drift" size="3"></span>
+      <input type="range" id="inc" min="0" max="0.99" step="0.01" onchange="draw();" size="3" />
+      dstance(yd)=<span class="value" id="dist" size="3"></span>
+      <input type="range" id="dis" min="1" max="20" value="4" step="1" onchange="draw();" size="3" />
+    </h1>
+    <h1>
+      zoom<span class="value" id="zoom" size="3"></span>
+      <input type="range" id="mag" min="1" max="20" value="1" step="1" onchange="draw();" size="3" />
+      over hole(%)=<span class="value" id="oh" size="3"></span>
+      <input type="range" id="over" min="1" max="10" value="1" step="1" onchange="draw();" size="3" />
+    </h1>
+    <div>
+      <canvas id="canvas" width="600" height="600"></canvas>
+    </div>
+  </body>
+</html>
