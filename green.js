@@ -209,7 +209,7 @@ function draw(){
     document.getElementById('zoom').textContent=mag;
     var over=document.getElementById('over').value;
     document.getElementById('oh').textContent=over;
-    var oh=over*r/100;
+    var oh=over*r/100+0.00001;
     var ini_spd=Math.sqrt(oh*res*2);
     var spot=r*inc;
     //var target=(spot-ini_spd*dt*oh)/2;
