@@ -260,7 +260,7 @@ function draw(){
     dw.solidCircle({x:0,y:0},0.05,'#000');
     dw.solidCircle({x:0,y:spot},0.05,'#000');
     dw.solidCircle({x:0,y:target},0.05,'#aaa');
-    dw.text(y2f(target)+'ft('+dec1(target/r)+')',{x:0,y:target});
+    dw.text(y2f(target)+'ft('+percent(target/r)+'%)',{x:0,y:target});
     dw.lineCircle({x:0,y:target-spot},r,'#0f0');
     dw.solidCircle({x:0,y:target-spot},0.05,'#0f0');
     dw.close();
