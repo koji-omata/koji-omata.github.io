@@ -259,9 +259,8 @@ function draw(){
     dw.unitCircle(r);
     dw.solidCircle({x:0,y:0},0.05,'#000');
     dw.solidCircle({x:0,y:spot},0.05,'#000');
-    dw.solidCircle({x:0,y:target},0.05,'#aaa');
+    dw.solidCircle({x:0,y:target},0.05,'#f00');
+    dw.lineCircle({x:0,y:(target+spot)/2},(spot-target)/2,'#0f0');
     dw.text(y2f(target),{x:0,y:target});
-    dw.lineCircle({x:0,y:target-spot},r,'#0f0');
-    dw.solidCircle({x:0,y:target-spot},0.05,'#0f0');
     dw.close();
 }
