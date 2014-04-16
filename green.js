@@ -114,13 +114,19 @@ function Curve(mu,inc,p){
     }
 }
 Curve.prototype= new Array(0);
-function Drawing(scale){
+function Drawing(scale,target){
     var ctx = document.getElementById('canvas').getContext('2d');
     ctx.clearRect(0,0,600,600);
     ctx.save();
     ctx.translate(300,300);
     ctx.font = "20px Times New Roman";
     ctx.fillStyle = "Black";
+    this.pzx = function(x){
+        return x*scale;
+    }
+    this.pzy = function(y){
+        return (y-target)*scale;
+    }
     this.close= function(){
         ctx.restore();
     }
@@ -130,8 +136,8 @@ function Drawing(scale){
         ctx.moveTo(0,0);
     }
     this.mark = function(p,r){
-        var x=p.x*scale;
-        var y=p.y*scale;
+        var x=this.pzx(p.x);
+        var y=this.pzy(p.y);
         ctx.moveTo(x,y);
         ctx.arc(x,y,r*scale,0,Math.PI*2);
     }
@@ -143,10 +149,10 @@ function Drawing(scale){
     this.solidLine = function(v1,v2,color){
         ctx.save();
         ctx.beginPath();
-        var x1=v1.x*scale;
-        var y1=v1.y*scale;
-        var x2=v2.x*scale;
-        var y2=v2.y*scale;
+        var x1=this.pzx(v1.x);
+        var y1=this.pzy(v1.y);
+        var x2=this.pzx(v2.x);
+        var y2=this.pzy(v2.y);
         ctx.moveTo(x1,y1);
         ctx.lineTo(x2,y2);
         ctx.strokeStyle =color;
@@ -156,8 +162,8 @@ function Drawing(scale){
     this.solidCircle = function(v,r,color){
         ctx.save();
         ctx.beginPath();
-        var x=v.x*scale;
-        var y=v.y*scale;
+        var x=this.pzx(v.x);
+        var y=this.pzy(v.y);
         ctx.moveTo(x,y);
         ctx.arc(x,y,r*scale,0,Math.PI*2);
         ctx.fillStyle=color;
@@ -167,8 +173,8 @@ function Drawing(scale){
     this.lineCircle = function(v,r,color){
         ctx.save();
         ctx.beginPath();
-        var x=v.x*scale;
-        var y=v.y*scale;
+        var x=this.pzx(v.x);
+        var y=this.pzy(v.y);
         ctx.moveTo(x+r*scale,y);
         ctx.arc(x,y,r*scale,0,Math.PI*2);
         ctx.strokeStyle=color;
@@ -179,7 +185,7 @@ function Drawing(scale){
         this.lineCircle({x:0,y:0},unit,'#000');
     }
     this.text = function(str,p){
-        ctx.fillText(str,p.x*scale,p.y*scale);
+        ctx.fillText(str,this.pzx(p.x),this.pzy(p.y));
     }
 }
 function init(){
@@ -209,7 +215,7 @@ function draw(){
     document.getElementById('zoom').textContent=mag;
     var over=document.getElementById('over').value;
     document.getElementById('oh').textContent=over;
-    var oh=over*r/100;
+    var oh=over*r/100+0.00001;
     var ini_spd=Math.sqrt(oh*res*2);
     var spot=r*inc;
     //var target=(spot-ini_spd*dt*oh)/2;
@@ -221,7 +227,7 @@ function draw(){
     p.reset(0,ini_spd);
     var cur0 = new Curve(res,inc,p);
     cur0.within(r);
-    var dw=new Drawing(scale);
+    var dw=new Drawing(scale,target);
     var div=12;
     var pary=new Array(0);
     for(var j=-div;j < div; j++){
@@ -261,6 +267,6 @@ function draw(){
     dw.solidCircle({x:0,y:spot},0.05,'#000');
     dw.solidCircle({x:0,y:target},0.05,'#f00');
     dw.lineCircle({x:0,y:(target+spot)/2},(spot-target)/2,'#0f0');
-    dw.text(y2f(target),{x:0,y:target});
+    dw.text(y2f(target)+'ft('+percent(target/r)+'%)',{x:0,y:target});
     dw.close();
 }
